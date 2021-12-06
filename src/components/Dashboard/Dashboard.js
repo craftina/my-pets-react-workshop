@@ -1,37 +1,33 @@
-const Dashboard = () =>{
+import { Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import * as apiServices from '../../services/apiServices';
+import PetCard from './PetCard/PetCard';
+
+const Dashboard = () => {
+    let [pets, setPets] = useState([]);
+
+    useEffect(() => {
+        apiServices.getPets()
+            .then(result => {
+                setPets(result)
+            });
+    }, [])
+
     return (
-<section id="dashboard-page" className="dashboard">
+        <section id="dashboard-page" className="dashboard">
             <h1>Dashboard</h1>
+            <nav>
+
+            </nav>
+
             <ul className="other-pets-list">
-                <li className="otherPet">
-                    <h3>Name: Buddy</h3>
-                    <p>Type: dog</p>
-                    <p className="img"><img src="/images/dog2.png"/></p>
-                    <a className="button" href="#">Details</a>
-                </li>
-
-                <li className="otherPet">
-                    <h3>Name: Tyson</h3>
-                    <p>Type: parrot</p>
-                    <p className="img"><img src="/images/parrot.png"/></p>
-                    <a className="button" href="#">Details</a>
-                </li>
-
-                <li className="otherPet">
-                    <h3>Name: Milo</h3>
-                    <p>Type: dog</p>
-                    <p className="img"><img src="/images/dog.png"/></p>
-                    <a className="button" href="#">Details</a>
-                </li>
-
-                <li className="otherPet">
-                    <h3>Name: Tom</h3>
-                    <p>Type: cat</p>
-                    <p className="img"><img src="/images/cat1.png"/></p>
-                    <a className="button" href="#">Details</a>
-                </li>
+                {
+                    pets.length > 0
+                        ? pets.map(p => <PetCard key={p._id} pet={p} />)
+                            : <p className="no-pets">No pets in database!</p>
+                }
             </ul>
-            <p className="no-pets">No pets in database!</p>
+
         </section>
 
     );

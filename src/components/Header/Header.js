@@ -12,7 +12,7 @@ const Header = ({
     );
     let userNav = (
         <div id="user">
-            <span>Welcome, email</span>
+            <span>Welcome, {email}</span>
             <Link className="button" to="/my-pets">My Pets</Link>
             <Link className="button" to="/add-pet">Add Pet</Link>
             <Link className="button" to="/">Logout</Link>
